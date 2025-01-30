@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="exam-container">
+    <h1>Python Sınavı</h1>
+    <form method="POST">
+        <label>Kullanıcı Adı:</label>
+        <input type="text" name="username" required><br><br>
+        <button type="button" onclick="saveUsername()">Kaydet</button>
+        
+        <div id="username-status" style="color: green; display: none;">Kullanıcı adı kaydedildi!</div>
+
+        {% for question in questions %}
+            <p>{{ question.text }}</p>
+            <label><input type="radio" name="q{{ question.id }}" value="A"> {{ question.option_a }}</label><br>
+            <label><input type="radio" name="q{{ question.id }}" value="B"> {{ question.option_b }}</label><br>
+            <label><input type="radio" name="q{{ question.id }}" value="C"> {{ question.option_c }}</label><br>
+            <label><input type="radio" name="q{{ question.id }}" value="D"> {{ question.option_d }}</label><br>
+        {% endfor %}
+        
+        <button type="submit">Sınavı Gönder</button>
+    </form>
+</div>
+
+<script>
+    function saveUsername() {
+        var username = document.querySelector('input[name="username"]').value;
+        if (username) {
+            fetch('/save_username', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("username-status").style.display = "block"; 
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

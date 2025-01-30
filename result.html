@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="exam-container">
+        <h1>Sonuçlar</h1>
+        <p><strong>{{ username }}</strong>, sınav sonucunuz: <strong>{{ score }}</strong></p>
+        <p>En yüksek skorunuz: <strong>{{ highest_score }}</strong></p>
+        <p>Tüm zamanların en yüksek skoru: <strong>{{ all_time_high_score }}</strong></p>
+        <p><a href="/"><button>Ana Sayfaya Dön</button></a></p>
+    </div>
+{% endblock %}
+
