@@ -145,7 +145,7 @@ def exam():
         for question in questions:
             selected_option = request.form.get(f"q{question.id}")  
             if selected_option == question.correct_option: 
-
+                score+=1
         exam_result = ExamResult(user_id=user.id, score=score)
         db.session.add(exam_result)
 
